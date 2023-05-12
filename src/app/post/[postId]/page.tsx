@@ -56,3 +56,5 @@ export default async function PostPage({ params }: PostPageProps) {
     </div>
   );
 }
+
+export const runtime = "edge";
