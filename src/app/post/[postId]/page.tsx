@@ -1,4 +1,5 @@
 import { RefreshData } from "./RefreshData";
+import { Timestamp } from "./Timestamp";
 import { getPostById } from "./getPostById";
 import { PostPageProps } from "./params";
 
@@ -11,21 +12,11 @@ export const revalidate = 3600;
 export default async function PostPage({ params }: PostPageProps) {
   const post = await getPostById(params.postId);
 
-  const postRenderTimeStamp = new Date(post.timestamp).toLocaleTimeString(
-    "en-US",
-    {
-      hour: "2-digit",
-      minute: "2-digit",
-      second: "2-digit",
-      hour12: false,
-    }
-  );
-
   return (
     <>
       <h1 className="font-serif tracking-wider text-2xl">{post.title}</h1>
       <p className="text-gray-600">{post.body}</p>
-      <p>{postRenderTimeStamp}</p>
+      <Timestamp timestamp={post.timestamp} />
       <hr />
       <RefreshData />
     </>
