@@ -1,10 +1,8 @@
+import { Suspense } from "react";
 import { RefreshData } from "./RefreshData";
 import { getPostById } from "./getPostById";
 import { PostPageProps } from "./params";
-
-export const generateStaticParams = async () => {
-  return [];
-};
+import { SimilarPosts } from "./SimilarPosts";
 
 export const revalidate = 3600;
 
@@ -18,6 +16,11 @@ export default async function PostPage({ params }: PostPageProps) {
       <p>{new Date(post.timestamp).toLocaleTimeString()}</p>
       <hr />
       <RefreshData />
+      <hr />
+      <Suspense fallback={<div>Loading...</div>}>
+        <h2>Similar Posts</h2>
+        <SimilarPosts postId={params.postId} />
+      </Suspense>
     </>
   );
 }

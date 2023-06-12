@@ -8,5 +8,9 @@ export const getPostById = async (
   });
   const post = await res.json();
 
+  // wait 3 seconds
+  await new Promise((resolve) => setTimeout(resolve, 5000));
+  console.log("Fetched post", id);
+
   return { ...post, timestamp: Date.now() };
 };

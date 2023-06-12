@@ -8,7 +8,7 @@ export const RefreshData = () => {
   const params = useParams();
 
   const handleClick = async () => {
-    await fetch(`/post/${params?.postId}/refresh`);
+    await fetch(`/api/pages/revalidate?path=${window.location.pathname}`);
     router.refresh();
   };
 
