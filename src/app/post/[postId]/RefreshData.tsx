@@ -1,14 +1,14 @@
 "use client";
 
 import { Button } from "@/components/ui/button";
-import { useRouter } from "next/navigation";
+import { useParams, useRouter } from "next/navigation";
 
 export const RefreshData = () => {
   const router = useRouter();
+  const params = useParams();
 
   const handleClick = async () => {
-    await fetch(`/api/pages/revalidate?path=${window.location.pathname}`);
-
+    await fetch(`/post/${params?.postId}/refresh`);
     router.refresh();
   };
 
