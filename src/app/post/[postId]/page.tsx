@@ -1,10 +1,19 @@
 import { Suspense } from "react";
 import { RefreshData } from "./RefreshData";
-import { getPostById } from "./getPostById";
 import { PostPageProps } from "./params";
 import { SimilarPosts } from "./SimilarPosts";
 
 export const revalidate = 3600;
+export const dynamic = "force-static";
+
+const getPostById = async (
+  id: string
+): Promise<{ title: string; body: string; timestamp: number }> => {
+  const res = await fetch(`https://jsonplaceholder.typicode.com/posts/${id}`);
+  const post = await res.json();
+
+  return { ...post, timestamp: Date.now() };
+};
 
 export default async function PostPage({ params }: PostPageProps) {
   const post = await getPostById(params.postId);

@@ -10,7 +10,6 @@ const getSimilarPosts = async (postId: number) => {
 
   // wait 3 seconds
   await new Promise((resolve) => setTimeout(resolve, 3000));
-  console.log("Fetched similar posts");
 
   return posts.filter((post) => post.id !== postId).slice(0, 5);
 };
@@ -20,8 +19,13 @@ export const SimilarPosts = async ({ postId }: { postId: string }) => {
   return (
     <div className="flex flex-col gap-4">
       {posts.map((post) => (
-        <Link prefetch={false} href={`/post/${post.id}`} key={post.id}>
-          <a className="text-blue-500 hover:underline">{post.title}</a>
+        <Link
+          prefetch={false}
+          href={`/post/${post.id}`}
+          key={post.id}
+          className="text-blue-500 hover:underline"
+        >
+          {post.title}
         </Link>
       ))}
     </div>
