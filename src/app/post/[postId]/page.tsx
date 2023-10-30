@@ -2,6 +2,8 @@ import { Suspense } from "react";
 import { RefreshData } from "./RefreshData";
 import { PostPageProps } from "./params";
 import { SimilarPosts } from "./SimilarPosts";
+import { Time } from "@/components/ui/time";
+import { Metadata } from "next";
 
 export const revalidate = 3600;
 export const dynamic = "force-static";
@@ -14,6 +16,15 @@ const getPostById = async (
 
   return { ...post, timestamp: Date.now() };
 };
+export async function generateMetadata({
+  params,
+}: PostPageProps): Promise<Metadata> {
+  const post = await getPostById(params.postId);
+
+  return {
+    title: post.title,
+  };
+}
 
 export default async function PostPage({ params }: PostPageProps) {
   const post = await getPostById(params.postId);
@@ -22,7 +33,7 @@ export default async function PostPage({ params }: PostPageProps) {
     <>
       <h1 className="font-serif tracking-wider text-2xl">{post.title}</h1>
       <p className="text-gray-600">{post.body}</p>
-      <p>{new Date(post.timestamp).toLocaleTimeString()}</p>
+      <Time date={new Date(post.timestamp)} />
       <hr />
       <RefreshData />
       <hr />

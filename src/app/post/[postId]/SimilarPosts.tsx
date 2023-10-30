@@ -20,6 +20,7 @@ export const SimilarPosts = async ({ postId }: { postId: string }) => {
     <div className="flex flex-col gap-4">
       {posts.map((post) => (
         <Link
+          prefetch={false}
           href={`/post/${post.id}`}
           key={post.id}
           className="text-blue-500 hover:underline"
